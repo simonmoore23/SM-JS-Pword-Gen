@@ -55,6 +55,29 @@ function getCharacterTypes() {
   };
 }
 
+// Section 4: Function to generate a random password based on criteria
+function generatePassword(length, characterTypes) {
+  var lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+  var uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var numberChars = "0123456789";
+  var specialChars = "!@#$%^&*()";
+
+  var availableChars = "";
+  if (characterTypes.useLowercase) availableChars += lowercaseChars;
+  if (characterTypes.useUppercase) availableChars += uppercaseChars;
+  if (characterTypes.useNumbers) availableChars += numberChars;
+  if (characterTypes.useSpecialChars) availableChars += specialChars;
+
+  var password = "";
+  for (var i = 0; i < length; i++) {
+    var randomIndex = Math.floor(Math.random() * availableChars.length);
+    password += availableChars.charAt(randomIndex);
+  }
+
+  return password;
+}
+
+
 generateButton.addEventListener("click", function () {
   var length = getPasswordLength();
   if (length === null) 
@@ -63,4 +86,8 @@ generateButton.addEventListener("click", function () {
   var characterTypes = getCharacterTypes();
   if (!characterTypes) 
   return;
+
+  var password = generatePassword(length, characterTypes);
+  passwordTextarea.value = password;
+  
 });
