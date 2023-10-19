@@ -34,8 +34,33 @@ function getPasswordLength() {
   return Number(length);
 }
 
+// Section 3: Function to prompt the user for character types
+function getCharacterTypes() {
+  var useLowercase = prompt("Include lowercase characters?");
+  var useUppercase = prompt("Include uppercase characters?");
+  var useNumbers = prompt("Include numbers?");
+  var useSpecialChars = prompt("Include special characters?");
+
+  // Ensure at least one character type is selected
+  if (!(useLowercase || useUppercase || useNumbers || useSpecialChars)) {
+    prompt("You must select at least one character type.");
+    return getCharacterTypes(); 
+  }
+
+  return {
+    useLowercase,
+    useUppercase,
+    useNumbers,
+    useSpecialChars,
+  };
+}
+
 generateButton.addEventListener("click", function () {
   var length = getPasswordLength();
   if (length === null) 
   return; 
+
+  var characterTypes = getCharacterTypes();
+  if (!characterTypes) 
+  return;
 });
